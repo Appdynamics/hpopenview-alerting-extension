@@ -1,36 +1,49 @@
 package com.appdynamics.extensions.hpopenview;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import org.apache.log4j.Logger;
-
 import com.appdynamics.extensions.alerts.customevents.Event;
 import com.appdynamics.extensions.alerts.customevents.EventBuilder;
 import com.appdynamics.extensions.alerts.customevents.HealthRuleViolationEvent;
 import com.appdynamics.extensions.alerts.customevents.OtherEvent;
 import com.appdynamics.extensions.hpopenview.api.Alert;
 import com.appdynamics.extensions.hpopenview.api.AlertBuilder;
-import com.appdynamics.extensions.hpopenview.common.CommandLineExecutor;
-import com.appdynamics.extensions.hpopenview.common.CommandLineExecutorException;
+import com.appdynamics.extensions.hpopenview.common.CommandExecutor;
+import com.appdynamics.extensions.hpopenview.common.CommandExecutorException;
 import com.appdynamics.extensions.hpopenview.common.ConfigUtil;
+import org.apache.log4j.Logger;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class HpOpenViewAlertExtension {
-	
-	public static final String CONFIG_FILENAME =  "." + File.separator + "conf" + File.separator + "config.yaml";
-	private static Logger logger = Logger.getLogger(HpOpenViewAlertExtension.class);
-	
-	final EventBuilder eventBuilder = new EventBuilder();
-    final AlertBuilder alertBuilder = new AlertBuilder();
-    final CommandLineExecutor commandExecutor = new CommandLineExecutor();
-	final static ConfigUtil<Configuration> configUtil = new ConfigUtil<Configuration>();
-	private Configuration config;
-	
-	public HpOpenViewAlertExtension(Configuration config){
+
+    // configuration unmarshalled
+    private Configuration config;
+
+    // builder to  de-serialize arguments passed to extension into JAVA POJO
+    private EventBuilder eventBuilder;
+
+    // builder to build alert object specific to the needs of integrated product
+    private AlertBuilder alertBuilder;
+
+    // an executor that runs system commands
+    private CommandExecutor commandExecutor;
+
+	private final static ConfigUtil<Configuration> configUtil = new ConfigUtil<Configuration>();
+
+    private static Logger logger = Logger.getLogger(HpOpenViewAlertExtension.class);
+
+    private static final String CONFIG_FILENAME =  "." + File.separator + "conf" + File.separator + "config.yaml";
+
+
+
+	public HpOpenViewAlertExtension(Configuration config,EventBuilder eventBuilder,AlertBuilder alertBuilder,CommandExecutor commandExecutor){
         String msg = "HpOpenViewAlertExtension Version ["+getImplementationTitle()+"]";
         logger.info(msg);
         System.out.println(msg);
         this.config = config;
+        this.eventBuilder = eventBuilder;
+        this.alertBuilder = alertBuilder;
+        this.commandExecutor = commandExecutor;
     }
 	
     public static void main( String[] args ) {
@@ -41,7 +54,7 @@ public class HpOpenViewAlertExtension {
         Configuration config = null;
         try {
             config = configUtil.readConfig(CONFIG_FILENAME, Configuration.class);
-            HpOpenViewAlertExtension alertExtension = new HpOpenViewAlertExtension(config);
+            HpOpenViewAlertExtension alertExtension = new HpOpenViewAlertExtension(config,new EventBuilder(),new AlertBuilder(),new CommandExecutor());
             boolean status = alertExtension.processAnEvent(args);
             if(status){
                 logger.info("HpOpenView Alerting Extension completed successfully.");
@@ -56,7 +69,7 @@ public class HpOpenViewAlertExtension {
         logger.error( "HpOpenView Alerting Extension completed with errors");
     }
     
-    private boolean processAnEvent(String[] args) {
+    public boolean processAnEvent(String[] args) {
         Event event = eventBuilder.build(args);
         if (event != null) {
             Alert alert = null;
@@ -69,9 +82,8 @@ public class HpOpenViewAlertExtension {
             }
             if (alert != null) {
                 try {
-                    commandExecutor.execute(config, alert);
-                    return true;
-                } catch (CommandLineExecutorException e) {
+                    return commandExecutor.execute(config, alert);
+                } catch (CommandExecutorException e) {
                     logger.error("Executing command opcmsg failed " + e);
                 }
             }

@@ -1,13 +1,12 @@
 package com.appdynamics.extensions.hpopenview.common;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
+import com.appdynamics.extensions.hpopenview.Configuration;
 import org.apache.log4j.Logger;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
-import com.appdynamics.extensions.hpopenview.Configuration;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 
 public class ConfigUtil<T> {
