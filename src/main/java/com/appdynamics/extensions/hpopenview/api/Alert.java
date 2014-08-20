@@ -4,13 +4,11 @@ public class Alert {
 	
 	private String application;
 	
-	private String severity;
-	
 	private String msg_grp;
 	
 	private String object;
 	
-	private AlertDetails msg_text;
+	private AlertDetails details;
 	
 	private String node;
 
@@ -20,14 +18,6 @@ public class Alert {
 
 	public void setApplication(String application) {
 		this.application = application;
-	}
-
-	public String getSeverity() {
-		return severity;
-	}
-
-	public void setSeverity(String severity) {
-		this.severity = severity;
 	}
 
 	public String getMsg_grp() {
@@ -46,15 +36,15 @@ public class Alert {
 		this.object = object;
 	}
 
-    public AlertDetails getMsg_text() {
-        return msg_text;
-    }
+    public AlertDetails getDetails() {
+		return details;
+	}
 
-    public void setMsg_text(AlertDetails msg_text) {
-        this.msg_text = msg_text;
-    }
+	public void setDetails(AlertDetails details) {
+		this.details = details;
+	}
 
-    public String getNode() {
+	public String getNode() {
 		return node;
 	}
 

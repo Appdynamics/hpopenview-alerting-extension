@@ -23,7 +23,7 @@ public class AlertBuilder {
             alert.setNode(violationEvent.getAffectedEntityName());
             alert.setObject(violationEvent.getAffectedEntityName());
             setSeverity(violationEvent.getSeverity(),violationEvent);
-            alert.setMsg_text(getSummary(violationEvent,true));
+            alert.setDetails(getSummary(violationEvent,true));
             return alert;
         }
         return null;
@@ -50,7 +50,7 @@ public class AlertBuilder {
           //  alert.setNode(otherEvent.getAffectedEntityName());
           //  alert.setObject(otherEvent.getAffectedEntityName());
             setSeverity(otherEvent.getSeverity(),otherEvent);
-            alert.setMsg_text(getSummary(otherEvent, true));
+            alert.setDetails(getSummary(otherEvent, true));
             return alert;
         }
         return null;
