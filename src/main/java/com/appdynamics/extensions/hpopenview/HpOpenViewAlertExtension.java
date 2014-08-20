@@ -2,7 +2,16 @@ package com.appdynamics.extensions.hpopenview;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.HttpURLConnection;
 
+import com.appdynamics.extensions.alerts.customevents.Event;
+import com.appdynamics.extensions.alerts.customevents.HealthRuleViolationEvent;
+import com.appdynamics.extensions.alerts.customevents.OtherEvent;
+import com.appdynamics.extensions.hpopenview.api.Alert;
+import com.appdynamics.extensions.hpopenview.api.AlertBuilder;
+import com.appdynamics.extensions.hpopenview.common.CommandLineExecutor;
+import com.appdynamics.extensions.http.Response;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.log4j.Logger;
 
 import com.appdynamics.extensions.alerts.customevents.EventBuilder;
@@ -14,6 +23,8 @@ public class HpOpenViewAlertExtension {
 	private static Logger logger = Logger.getLogger(HpOpenViewAlertExtension.class);
 	
 	final EventBuilder eventBuilder = new EventBuilder();
+    final AlertBuilder alertBuilder = new AlertBuilder();
+    final CommandLineExecutor commandExecutor = new CommandLineExecutor();
 	final static ConfigUtil<Configuration> configUtil = new ConfigUtil<Configuration>();
 	private Configuration config;
 	
@@ -48,6 +59,24 @@ public class HpOpenViewAlertExtension {
     }
     
     private boolean processAnEvent(String[] args) {
+        Event event = eventBuilder.build(args);
+        if (event != null) {
+            Alert alert = null;
+            if (event instanceof HealthRuleViolationEvent) {
+                HealthRuleViolationEvent violationEvent = (HealthRuleViolationEvent) event;
+                alert = alertBuilder.buildAlertFromHealthRuleViolationEvent(violationEvent, config);
+            } else {
+                OtherEvent otherEvent = (OtherEvent) event;
+                alert = alertBuilder.buildAlertFromOtherEvent(otherEvent, config);
+            }
+            if (alert != null) {
+                try {
+                    //send alert to
+                } catch (JsonProcessingException e) {
+                    logger.error("Cannot serialized object into Json." + e);
+                }
+            }
+        }
 		return false;
 	}
     

@@ -10,7 +10,7 @@ public class Alert {
 	
 	private String object;
 	
-	private String msg_text;
+	private AlertDetails msg_text;
 	
 	private String node;
 
@@ -46,15 +46,15 @@ public class Alert {
 		this.object = object;
 	}
 
-	public String getMsg_text() {
-		return msg_text;
-	}
+    public AlertDetails getMsg_text() {
+        return msg_text;
+    }
 
-	public void setMsg_text(String msg_text) {
-		this.msg_text = msg_text;
-	}
+    public void setMsg_text(AlertDetails msg_text) {
+        this.msg_text = msg_text;
+    }
 
-	public String getNode() {
+    public String getNode() {
 		return node;
 	}
 

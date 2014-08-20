@@ -2,16 +2,14 @@ package com.appdynamics.extensions.hpopenview;
 
 public class Configuration {
 	
-	private String opcmsgPath;
+	private String pathToExecutable;
 
-	public String getOpcmsgPath() {
-		return opcmsgPath;
-	}
 
-	public void setOpcmsgPath(String opcmsgPath) {
-		this.opcmsgPath = opcmsgPath;
-	}
-	
-	
+    public String getPathToExecutable() {
+        return pathToExecutable;
+    }
 
+    public void setPathToExecutable(String pathToExecutable) {
+        this.pathToExecutable = pathToExecutable;
+    }
 }
