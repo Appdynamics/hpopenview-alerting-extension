@@ -22,24 +22,26 @@ public class AlertBuilder {
             alert.setApplication(violationEvent.getAppName());
             alert.setNode(violationEvent.getAffectedEntityName());
             alert.setObject(violationEvent.getAffectedEntityName());
-            setSeverity(violationEvent.getSeverity(),violationEvent);
+            alert.setSeverity(getSeverity(violationEvent.getEventType(),violationEvent.getSeverity()));
             alert.setDetails(getSummary(violationEvent,true));
             return alert;
         }
         return null;
     }
 
-    private void setSeverity(String severity, Event event) {
+
+    private String getSeverity(String eventType,String severity){
         if(severity.equalsIgnoreCase("WARN")){
-            event.setSeverity("WARNING");
+            return "WARNING";
         }
         else if(severity.equalsIgnoreCase("ERROR")){
-            event.setSeverity("CRITICAL");
+            return "CRITICAL";
         }
-        else if(severity.equalsIgnoreCase("INFO")){
-            event.setSeverity("INFO");
-        }
+        return "INFO";
     }
+
+
+
 
 
 
@@ -47,64 +49,12 @@ public class AlertBuilder {
         if (otherEvent != null && config != null) {
             Alert alert = new Alert();
             alert.setApplication(otherEvent.getAppName());
-          //  alert.setNode(otherEvent.getAffectedEntityName());
-          //  alert.setObject(otherEvent.getAffectedEntityName());
-            setSeverity(otherEvent.getSeverity(),otherEvent);
+            alert.setSeverity(getSeverity(null,otherEvent.getSeverity()));
             alert.setDetails(getSummary(otherEvent, true));
             return alert;
         }
         return null;
     }
-
-    private String getDescription(OtherEvent otherEvent) {
-        return "Event : " + otherEvent.getEventNotificationName() + " Severity: " + otherEvent.getSeverity();
-    }
-
-    private String getDescription(HealthRuleViolationEvent violationEvent) {
-        return "Health Rule: " + violationEvent.getHealthRuleName() + " Severity: " + violationEvent.getSeverity();
-    }
-
-    private String getIncidentKey(HealthRuleViolationEvent violationEvent) {
-        return violationEvent.getAppID() + DASH + violationEvent.getAffectedEntityID() + DASH + violationEvent.getHealthRuleID();
-    }
-
-    private String getIncidentKey(OtherEvent otherEvent) {
-        return otherEvent.getAppID() + DASH + otherEvent.getEventNotificationId();
-    }
-
-    private String getEventTypes(OtherEvent otherEvent) {
-        StringBuffer sb = new StringBuffer();
-        for(EventType type : otherEvent.getEventTypes()){
-            sb.append(type.getEventType());
-            sb.append(",");
-        }
-        return sb.toString();
-    }
-
-    private String getEventSummaries(OtherEvent otherEvent) {
-        StringBuffer sb = new StringBuffer();
-        for(EventSummary summary : otherEvent.getEventSummaries()){
-            sb.append(summary.getEventSummaryString());
-            sb.append(",");
-        }
-        return sb.toString();
-    }
-
-
-    public String convertIntoJsonString(Alert alert) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(alert);
-    }
-
-
-
-    private String getAlertUrl(OtherEvent otherEvent) {
-        if(otherEvent.getEventSummaries().get(0)  != null) {
-            return otherEvent.getDeepLinkUrl() + otherEvent.getEventSummaries().get(0).getEventSummaryId();
-        }
-        return null;
-    }
-
 
 
     private AlertDetails getSummary(HealthRuleViolationEvent violationEvent,boolean showDetails) {
@@ -190,9 +140,6 @@ public class AlertBuilder {
 
 
 
-    private String getEntityDisplayName(OtherEvent otherEvent) {
-        return otherEvent.getAppName()  + SLASH_SEPARATOR + otherEvent.getEventNotificationName();
-    }
 
 
 

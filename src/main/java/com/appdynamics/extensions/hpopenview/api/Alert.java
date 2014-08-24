@@ -7,7 +7,9 @@ public class Alert {
 	private String msg_grp;
 	
 	private String object;
-	
+
+    private String severity;
+
 	private AlertDetails details;
 	
 	private String node;
@@ -50,6 +52,13 @@ public class Alert {
 
 	public void setNode(String node) {
 		this.node = node;
-	}	
-	
+	}
+
+    public String getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
 }
