@@ -6,6 +6,7 @@ import com.appdynamics.extensions.hpopenview.api.Alert;
 import com.appdynamics.extensions.hpopenview.api.AlertBuilder;
 import com.appdynamics.extensions.hpopenview.common.CommandExecutor;
 import com.appdynamics.extensions.hpopenview.common.CommandExecutorException;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -21,27 +22,34 @@ public class HpOpenViewAlertExtensionTest {
     @Test
     public void canPostHRViolationEventWithMultipleEntityAndTriggerMultipleBaseline() throws FileNotFoundException, CommandExecutorException {
         HpOpenViewAlertExtension alertExtension = getHpOpenViewAlertExtension();
-        alertExtension.processAnEvent(eventArgs.getHealthRuleViolationEventWithMultipleEvalEntityAndMultipleTriggerBaseline());
+        Assert.assertTrue(alertExtension.processAnEvent(eventArgs.getHealthRuleViolationEventWithMultipleEvalEntityAndMultipleTriggerBaseline()));
     }
 
 
     @Test
     public void canPostOtherEvent() throws FileNotFoundException, CommandExecutorException {
         HpOpenViewAlertExtension alertExtension = getHpOpenViewAlertExtension();
-        alertExtension.processAnEvent(eventArgs.getOtherEvent());
+        Assert.assertTrue(alertExtension.processAnEvent(eventArgs.getOtherEvent()));
     }
 
     @Test
     public void canPostHRViolationEventWithMultipleEvalEntityAndTriggerMultipleBaselineNoDetails() throws FileNotFoundException, CommandExecutorException {
         HpOpenViewAlertExtension alertExtension = getHpOpenViewAlertExtension();
-        alertExtension.processAnEvent(eventArgs.getHealthRuleViolationEventWithMultipleEvalEntityAndMultipleTriggerBaseline());
+        Assert.assertTrue(alertExtension.processAnEvent(eventArgs.getHealthRuleViolationEventWithMultipleEvalEntityAndMultipleTriggerBaseline()));
     }
 
+       /* @Test
+    public void integrationTest() throws FileNotFoundException {
+        ConfigUtil<Configuration> configUtil = new ConfigUtil<Configuration>();
+        Configuration config = configUtil.readConfig(this.getClass().getResource("/conf/config.windows.yaml").getFile(),Configuration.class);
+        TBSMAlertExtension extension = new TBSMAlertExtension(config,new EventBuilder(),new AlertBuilder(),new CommandExecutor());
+        Assert.assertTrue(extension.processAnEvent(eventArgs.getHealthRuleViolationEventWithMultipleEvalEntityAndMultipleTriggerBaseline()));
+    }*/
 
     @Test
     public void canPostOtherEventWithNoDetails() throws FileNotFoundException, CommandExecutorException {
         HpOpenViewAlertExtension alertExtension = getHpOpenViewAlertExtension();
-        alertExtension.processAnEvent(eventArgs.getOtherEvent());
+        Assert.assertTrue(alertExtension.processAnEvent(eventArgs.getOtherEvent()));
     }
 
     private HpOpenViewAlertExtension getHpOpenViewAlertExtension() throws CommandExecutorException {
@@ -53,8 +61,8 @@ public class HpOpenViewAlertExtensionTest {
 
     private Configuration createConfiguration(){
         Configuration configuration = new Configuration();
-        configuration.setTimeout(10);
         configuration.setPathToExecutable("/usr/local/opcmsg");
+        configuration.setMsgGroup("AppDynamics");
         return configuration;
     }
 

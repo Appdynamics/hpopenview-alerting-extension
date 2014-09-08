@@ -3,14 +3,14 @@ package com.appdynamics.extensions.hpopenview;
 public class Configuration {
 	
 	private String pathToExecutable;
-    private int timeout;
+    private String msgGroup;
 
-    public int getTimeout() {
-        return timeout;
+    public String getMsgGroup() {
+        return msgGroup;
     }
 
-    public void setTimeout(int timeout) {
-        this.timeout = timeout;
+    public void setMsgGroup(String msgGroup) {
+        this.msgGroup = msgGroup;
     }
 
     public String getPathToExecutable() {
