@@ -16,6 +16,7 @@ public class CommandBuilderTest {
 
     public static final String PATH_TO_EXEC = "C:\\HP\\bin\\opcmsg";
     public static final String EQUALS_SEPARATOR = "=";
+    public static final String QUOTE_STRING = "\'";
     CommandBuilder builder = new CommandBuilder();
     ConfigUtil<Configuration> configUtil = new ConfigUtil<Configuration>();
 
@@ -27,10 +28,10 @@ public class CommandBuilderTest {
         String[] strings = commandLine.toStrings();
         List<String> commandList = Arrays.asList(strings);
         Assert.assertTrue(commandList.contains(StringUtils.fixFileSeparatorChar(PATH_TO_EXEC)));
-        Assert.assertTrue(commandList.contains(CommandConstants.APPLICATION + EQUALS_SEPARATOR + alert.getApplication()));
-        Assert.assertTrue(commandList.contains(CommandConstants.OBJECT + EQUALS_SEPARATOR + alert.getObject()));
+        Assert.assertTrue(commandList.contains(CommandConstants.APPLICATION + EQUALS_SEPARATOR + QUOTE_STRING + alert.getApplication() + QUOTE_STRING));
+        Assert.assertTrue(commandList.contains(CommandConstants.OBJECT + EQUALS_SEPARATOR + QUOTE_STRING + alert.getObject() + QUOTE_STRING));
         Assert.assertTrue(commandList.contains(CommandConstants.MESSAGE_GROUP + EQUALS_SEPARATOR + alert.getMsgGroup()));
-        Assert.assertTrue(commandList.contains(CommandConstants.MESSAGE_TEXT + EQUALS_SEPARATOR + "\"" + alert.getMsgText() + "\""));
+        Assert.assertTrue(commandList.contains(CommandConstants.MESSAGE_TEXT + EQUALS_SEPARATOR + QUOTE_STRING + alert.getMsgText() + QUOTE_STRING));
         Assert.assertTrue(commandList.contains(CommandConstants.SEVERITY + EQUALS_SEPARATOR + alert.getSeverity()));
     }
 
