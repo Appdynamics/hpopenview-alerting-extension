@@ -48,7 +48,7 @@ public class CommandExecutor {
         Runtime rt = Runtime.getRuntime();
         Process p = null;
         try {
-            p = rt.exec(command.getArguments());
+            p = rt.exec(command.toStrings());
             if(logger.isDebugEnabled()){
                 logDebugProcessExecution(p);
             }
