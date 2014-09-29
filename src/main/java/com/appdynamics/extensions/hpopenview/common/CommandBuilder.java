@@ -8,7 +8,7 @@ import org.apache.commons.exec.CommandLine;
 public class CommandBuilder {
 
     private static final String EQUALS_SEPARATOR = "=";
-    public static final String QUOTE_STR = "\"";
+    public static final String QUOTE_STR = "";
 
     public CommandLine buildCommand(Configuration config, Alert alert) {
         String pathToExecutable = config.getPathToExecutable();

@@ -16,7 +16,7 @@ public class CommandBuilderTest {
 
     public static final String PATH_TO_EXEC = "C:\\HP\\bin\\opcmsg";
     public static final String EQUALS_SEPARATOR = "=";
-    public static final String QUOTE_STRING = "\"";
+    public static final String QUOTE_STRING = "";
     CommandBuilder builder = new CommandBuilder();
     ConfigUtil<Configuration> configUtil = new ConfigUtil<Configuration>();
 
