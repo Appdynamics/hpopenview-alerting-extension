@@ -51,11 +51,14 @@ HP OpenView software provided large-scale system and network management of an or
 
     	
         ```	
-            #complete path to the binary or exe which includes the binary or exe. Use proper separators for Windows and Unix.
-            pathToExecutable: ""
-            
-            # timeout in seconds to execute command
-            timeout: 10
+          #complete path to the binary or exe which includes the binary or exe. Use proper separators for Windows and Unix. For windows, escape the "\" char with another "\"
+          # For eg. "C:\\HP\\bin\\opcmsg"
+          pathToExecutable: ""
+          
+          #Message group for HP OpenView
+          msgGroup: "AppDynamics"
+          
+
         ```        
          
 
@@ -69,7 +72,7 @@ Find out more in the [AppDynamics Exchange](http://community.appdynamics.com/t5/
 
 ##Support
 
-For any questions or feature request, please contact [AppDynamics Center of Excellence](mailto:ace-request@appdynamics.com).
+For any questions or feature request, please contact [AppDynamics Center of Excellence](mailto:help@appdynamics.com).
 
 **Version:** 1.1
 **Controller Compatibility:** 3.7+
