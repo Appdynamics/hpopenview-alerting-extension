@@ -4,7 +4,7 @@
 
   <groupId>com.appdynamics.extensions</groupId>
   <artifactId>hpopenview-alert</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <packaging>jar</packaging>
 
   <name>hpopenview-alerting-extension</name>
@@ -43,7 +43,7 @@
         <dependency>
             <groupId>com.appdynamics</groupId>
             <artifactId>appd-exts-commons</artifactId>
-            <version>1.0.7</version>
+            <version>1.2.4</version>
         </dependency>
         <dependency>
             <groupId>commons-httpclient</groupId>
