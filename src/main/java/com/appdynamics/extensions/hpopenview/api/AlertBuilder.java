@@ -16,6 +16,7 @@ public class AlertBuilder {
     private static Logger logger = Logger.getLogger(AlertBuilder.class);
     public static final String COLON_SEPARATOR = ":";
     public static final String POLICY_CLOSE = "POLICY_CLOSE";
+    public static final String POLICY_CANCELED = "POLICY_CANCELED";
 
     public Alert buildAlertFromHealthRuleViolationEvent(HealthRuleViolationEvent violationEvent, Configuration config) {
         if(violationEvent != null && config != null){
@@ -85,7 +86,7 @@ public class AlertBuilder {
 
     private String getSeverity(String eventType,String severity){
         if(eventType != null && severity != null) {
-            if (eventType.equalsIgnoreCase(POLICY_CLOSE)) {
+            if (shouldResolveEvent(eventType)) {
                 return "NORMAL";
             }
             if (severity.equalsIgnoreCase("WARN")) {
@@ -97,6 +98,10 @@ public class AlertBuilder {
             }
         }
         return "MINOR";
+    }
+
+    private boolean shouldResolveEvent(String eventType) {
+        return eventType != null && (eventType.startsWith(POLICY_CLOSE) || eventType.startsWith(POLICY_CANCELED));
     }
 
 }
