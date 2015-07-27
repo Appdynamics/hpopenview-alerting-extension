@@ -5,3 +5,6 @@ pathToExecutable: "/usr/local/opcmsg"
 #Message group for HP OpenView
 msgGroup: "AppDynamics"
 
+#public url for controller (http://<host>:<port> or https://<host>:<port>)
+controllerUrl : ""
+

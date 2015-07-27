@@ -4,6 +4,7 @@ public class Configuration {
 	
 	private String pathToExecutable;
     private String msgGroup;
+    private String controllerUrl;
 
     public String getMsgGroup() {
         return msgGroup;
@@ -19,5 +20,13 @@ public class Configuration {
 
     public void setPathToExecutable(String pathToExecutable) {
         this.pathToExecutable = pathToExecutable;
+    }
+
+    public String getControllerUrl() {
+        return controllerUrl;
+    }
+
+    public void setControllerUrl(String controllerUrl) {
+        this.controllerUrl = controllerUrl;
     }
 }
