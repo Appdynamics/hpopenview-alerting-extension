@@ -49,9 +49,16 @@ public class CommandExecutor {
         Process p = null;
         try {
             p = rt.exec(command.toStrings());
-            if(logger.isDebugEnabled()){
-                logDebugProcessExecution(p);
-            }
+            StreamGobbler errorGobbler = new
+                    StreamGobbler(p.getErrorStream(), "ERROR");
+
+            // any output?
+            StreamGobbler outputGobbler = new
+                    StreamGobbler(p.getInputStream(), "OUTPUT");
+
+            // kick them off
+            errorGobbler.start();
+            outputGobbler.start();
             int exitVal = p.waitFor();
             if(exitVal != 0){
                 logger.error("Unable to generate alert. ExitValue = " + exitVal);
@@ -67,7 +74,7 @@ public class CommandExecutor {
         return true;
     }
 
-    private void logDebugProcessExecution(Process p){
+    /*private void logDebugProcessExecution(Process p){
 
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
         BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
@@ -90,7 +97,7 @@ public class CommandExecutor {
         } catch (IOException e) {
             logger.error("Error in accessing the error stream " + e);
         }
-    }
+    }*/
 
 
 }

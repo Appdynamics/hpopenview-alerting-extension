@@ -1,6 +1,6 @@
 #complete path to the binary or exe which includes the binary or exe. Use proper separators for Windows and Unix. For windows, escape the "\" char with another "\"
 # For eg. "C:\\HP\\bin\\opcmsg"
-pathToExecutable: "/usr/local/opcmsg"
+pathToExecutable: "./opcmsg"
 
 #Message group for HP OpenView
 msgGroup: "AppDynamics"

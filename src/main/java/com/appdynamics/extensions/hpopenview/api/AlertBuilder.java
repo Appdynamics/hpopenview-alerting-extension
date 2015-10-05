@@ -1,5 +1,6 @@
 package com.appdynamics.extensions.hpopenview.api;
 
+import com.appdynamics.extensions.StringUtils;
 import com.appdynamics.extensions.alerts.customevents.Event;
 import com.appdynamics.extensions.alerts.customevents.EventSummary;
 import com.appdynamics.extensions.alerts.customevents.HealthRuleViolationEvent;
@@ -23,10 +24,10 @@ public class AlertBuilder {
     public Alert buildAlertFromHealthRuleViolationEvent(HealthRuleViolationEvent violationEvent, Configuration config) {
         if(violationEvent != null && config != null){
             Alert alert = new Alert();
-            alert.setApplication(getApplication(violationEvent));
-            alert.setObject(violationEvent.getHealthRuleName());
+            alert.setApplication(StringUtils.stripQuote(getApplication(violationEvent)));
+            alert.setObject(StringUtils.stripQuote(violationEvent.getHealthRuleName()));
             alert.setSeverity(getSeverity(violationEvent.getEventType(),violationEvent.getSeverity()));
-            alert.setMsgText(getMessageText(violationEvent, config));
+            alert.setMsgText(StringUtils.stripQuote(getMessageText(violationEvent, config)));
             alert.setMsgGroup(config.getMsgGroup());
             return alert;
         }
@@ -37,10 +38,10 @@ public class AlertBuilder {
     public Alert buildAlertFromOtherEvent(OtherEvent otherEvent, Configuration config) {
         if (otherEvent != null && config != null) {
             Alert alert = new Alert();
-            alert.setApplication(getApplication(otherEvent));
-            alert.setObject(otherEvent.getEventNotificationName());
+            alert.setApplication(StringUtils.stripQuote(getApplication(otherEvent)));
+            alert.setObject(StringUtils.stripQuote(otherEvent.getEventNotificationName()));
             alert.setSeverity(getSeverity(null,otherEvent.getSeverity()));
-            alert.setMsgText(getMessageText(otherEvent,config));
+            alert.setMsgText(StringUtils.stripQuote(getMessageText(otherEvent, config)));
             alert.setMsgGroup(config.getMsgGroup());
             return alert;
         }
@@ -64,8 +65,8 @@ public class AlertBuilder {
     private String getApplication(Event event) {
         StringBuilder builder = new StringBuilder("");
         builder.append(event.getAppName());
-        builder.append(COLON_SEPARATOR);
-        builder.append(event.getPriority());
+        /*builder.append(COLON_SEPARATOR);
+        builder.append(event.getPriority());*/
         builder.append(COLON_SEPARATOR);
         if(event instanceof HealthRuleViolationEvent){
             HealthRuleViolationEvent hrve = (HealthRuleViolationEvent)event;
@@ -81,7 +82,7 @@ public class AlertBuilder {
 
     private String getMessageText(HealthRuleViolationEvent violationEvent, Configuration config) {
         StringBuilder builder = new StringBuilder("");
-        builder.append(violationEvent.getSummaryMessage());
+        builder.append(StringUtils.stripQuote(violationEvent.getSummaryMessage()));
         builder.append(" ");
         builder.append(getAlertUrl(config.getControllerUrl(),violationEvent));
         return builder.toString();

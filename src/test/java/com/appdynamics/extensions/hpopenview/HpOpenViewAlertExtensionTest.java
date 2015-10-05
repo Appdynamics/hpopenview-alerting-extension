@@ -6,6 +6,7 @@ import com.appdynamics.extensions.hpopenview.api.Alert;
 import com.appdynamics.extensions.hpopenview.api.AlertBuilder;
 import com.appdynamics.extensions.hpopenview.common.CommandExecutor;
 import com.appdynamics.extensions.hpopenview.common.CommandExecutorException;
+import com.appdynamics.extensions.hpopenview.common.ConfigUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -38,11 +39,11 @@ public class HpOpenViewAlertExtensionTest {
         Assert.assertTrue(alertExtension.processAnEvent(eventArgs.getHealthRuleViolationEventWithMultipleEvalEntityAndMultipleTriggerBaseline()));
     }
 
-       /* @Test
+    /*    @Test
     public void integrationTest() throws FileNotFoundException {
         ConfigUtil<Configuration> configUtil = new ConfigUtil<Configuration>();
         Configuration config = configUtil.readConfig(this.getClass().getResource("/conf/config.windows.yaml").getFile(),Configuration.class);
-        TBSMAlertExtension extension = new TBSMAlertExtension(config,new EventBuilder(),new AlertBuilder(),new CommandExecutor());
+            HpOpenViewAlertExtension extension = new HpOpenViewAlertExtension(config,new EventBuilder(),new AlertBuilder(),new CommandExecutor());
         Assert.assertTrue(extension.processAnEvent(eventArgs.getHealthRuleViolationEventWithMultipleEvalEntityAndMultipleTriggerBaseline()));
     }*/
 

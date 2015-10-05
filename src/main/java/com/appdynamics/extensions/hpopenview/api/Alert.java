@@ -25,7 +25,8 @@ public class Alert {
 	}
 
 	public void setObject(String object) {
-		this.object = object;
+
+        this.object = object;
 	}
 
     public String getSeverity() {
