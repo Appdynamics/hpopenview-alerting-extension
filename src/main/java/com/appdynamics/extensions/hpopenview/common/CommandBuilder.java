@@ -15,9 +15,15 @@ public class CommandBuilder {
         CommandLine command = new CommandLine(pathToExecutable);
         command.addArgument(CommandConstants.APPLICATION + EQUALS_SEPARATOR + QUOTE_STR + alert.getApplication() + QUOTE_STR,false);
         command.addArgument(CommandConstants.SEVERITY + EQUALS_SEPARATOR + alert.getSeverity(),false);
+        // object - health rule/event notification name
         command.addArgument(CommandConstants.OBJECT + EQUALS_SEPARATOR + QUOTE_STR + alert.getObject() + QUOTE_STR,false);
+        // msgGroup from config.yml
         command.addArgument(CommandConstants.MESSAGE_GROUP + EQUALS_SEPARATOR + alert.getMsgGroup(),false);
+        // HR summary message + modified deeplink url
         command.addArgument(CommandConstants.MESSAGE_TEXT + EQUALS_SEPARATOR + QUOTE_STR + alert.getMsgText() + QUOTE_STR,false);
+        if (alert.getNode() != null) {
+            command.addArgument(CommandConstants.NODE + EQUALS_SEPARATOR + QUOTE_STR + alert.getNode() + QUOTE_STR, false);
+        }
         return command;
     }
 
