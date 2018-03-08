@@ -11,8 +11,10 @@ package com.appdynamics.extensions.hpopenview.common;
 import com.appdynamics.extensions.hpopenview.Configuration;
 import com.appdynamics.extensions.hpopenview.api.Alert;
 import org.apache.commons.exec.CommandLine;
+import org.apache.log4j.Logger;
 
 public class CommandBuilder {
+    private static Logger logger = Logger.getLogger(CommandBuilder.class);
 
     private static final String EQUALS_SEPARATOR = "=";
     public static final String QUOTE_STR = "\"";
@@ -29,7 +31,10 @@ public class CommandBuilder {
         // HR summary message + modified deeplink url
         command.addArgument(CommandConstants.MESSAGE_TEXT + EQUALS_SEPARATOR + QUOTE_STR + alert.getMsgText() + QUOTE_STR,false);
         if (alert.getNode() != null) {
-            command.addArgument(CommandConstants.NODE + EQUALS_SEPARATOR + QUOTE_STR + alert.getNode() + QUOTE_STR, false);
+            command.addArgument("-option");
+            command.addArgument("var1" + EQUALS_SEPARATOR + QUOTE_STR + alert.getNode() + QUOTE_STR, false);
+        } else {
+            logger.warn("Affected entity is null, hence omitting options to the opcmsg command");
         }
         return command;
     }
