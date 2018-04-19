@@ -36,7 +36,6 @@ public class AlertBuilder {
             alert.setSeverity(getSeverity(violationEvent.getEventType(),violationEvent.getSeverity()));
             alert.setMsgText(StringUtils.stripQuote(getMessageText(violationEvent, config)));
             alert.setMsgGroup(config.getMsgGroup());
-            alert.setNode(StringUtils.stripQuote(violationEvent.getAffectedEntityName()));
             return alert;
         }
         return null;
@@ -51,7 +50,6 @@ public class AlertBuilder {
             alert.setSeverity(getSeverity(null,otherEvent.getSeverity()));
             alert.setMsgText(StringUtils.stripQuote(getMessageText(otherEvent, config)));
             alert.setMsgGroup(config.getMsgGroup());
-            alert.setNode(StringUtils.stripQuote(otherEvent.getEventNotificationName()));
             return alert;
         }
         return null;
