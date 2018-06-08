@@ -28,9 +28,6 @@ public class CommandBuilder {
         command.addArgument(CommandConstants.MESSAGE_GROUP + EQUALS_SEPARATOR + alert.getMsgGroup(),false);
         // HR summary message + modified deeplink url
         command.addArgument(CommandConstants.MESSAGE_TEXT + EQUALS_SEPARATOR + QUOTE_STR + alert.getMsgText() + QUOTE_STR,false);
-        if (alert.getNode() != null) {
-            command.addArgument(CommandConstants.NODE + EQUALS_SEPARATOR + QUOTE_STR + alert.getNode() + QUOTE_STR, false);
-        }
         return command;
     }
 
