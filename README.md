@@ -1,16 +1,14 @@
-# AppDynamics HP OpenView - Alerting Extension
-==============================================
+# AppDynamics Alerting Extension for use with HP OpenView
 
-##Use Case
-HP OpenView software provided large-scale system and network management of an organization's IT infrastructure.
+## Use Case
+HP Operations Manager software provides large-scale system and network management of an organization's IT infrastructure. It is also called HP Open View.
+This custom action integrates HP Operations Manager with AppDynamics by creating tickets in response to events/alerts in AppDynamics.
 
 
-### Prerequisites
+## Prerequisites
+- You should have the opcmsg executable on the controller machine. For this, please install the HP OM agent on the machine where Controller resides.
 
-- You should have the opcmsg executable on the controller.
-
-##Installation Steps
-
+## Installation Steps
  1. Run "mvn clean install". 
 
  2. Find the zip file at 'target/hpopenview-alert.zip' or Download the HP Open View Alerting Extension zip from [AppDynamics Exchange](http://community.appdynamics.com/t5/AppDynamics-eXchange/idb-p/extensions)
@@ -61,19 +59,17 @@ HP OpenView software provided large-scale system and network management of an or
 
         ```        
          
-
-
-
  6. Now you are ready to use this extension as a custom action. In the AppDynamics UI, go to Alert & Respond -> Actions. Click Create Action. Select Custom Action and click OK. In the drop-down menu you can find the action called 'hpopenview-alert'.
 
-##Contributing
+## Contributing
+Always feel free to fork and contribute any changes directly via [GitHub](https://github.com/Appdynamics/hpopenview-alerting-extension).
 
-Find out more in the [AppDynamics Exchange](http://community.appdynamics.com/t5/AppDynamics-eXchange/idb-p/extensions)
+## Support
+For any questions or feature request, please contact [AppDynamics Support](mailto:help@appdynamics.com).
 
-##Support
+## Version
+Extension Version: 1.0.9
 
-For any questions or feature request, please contact [AppDynamics Center of Excellence](mailto:help@appdynamics.com).
+Controller Compatibility: 4.3+
 
-**Version:** 1.1
-**Controller Compatibility:** 3.7+
-
+Last updated On: 8th June, 2018
